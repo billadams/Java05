@@ -1,8 +1,11 @@
 package adams.business;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
-public class Account {
+public class Claim {
+	private int claimNumber;
 	private int empId;
 	private String firstName;
 	private String lastName;
@@ -10,8 +13,9 @@ public class Account {
 	private LocalDate dateOfService;
 	private double amountRequested;
 	
-	public Account() 
+	public Claim() 
 	{
+		this.claimNumber = 0;
 		this.empId = 0;
 		this.firstName = "";
 		this.lastName = "";
@@ -20,9 +24,10 @@ public class Account {
 		this.amountRequested = 0;
 	}
 	
-	public Account(int empId, String firstName, String lastName, String claimType, LocalDate dateOfService,
+	public Claim(int claimNumber, int empId, String firstName, String lastName, String claimType, LocalDate dateOfService,
 			double amountRequested) 
 	{
+		this.claimNumber = claimNumber;
 		this.empId = empId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -31,6 +36,16 @@ public class Account {
 		this.amountRequested = amountRequested;
 	}
 
+	public int getClaimNumber()
+	{
+		return claimNumber;
+	}
+	
+	public void setClaimNumber(int claimNumber)
+	{
+		this.claimNumber = claimNumber;
+	}
+	
 	public int getEmpId()
 	{
 		return empId;
@@ -89,6 +104,21 @@ public class Account {
 	public void setAmountRequested(double amountRequested)
 	{
 		this.amountRequested = amountRequested;
+	}
+
+	@Override
+	public String toString() {
+        StringBuilder sb = new StringBuilder();
+        DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+        
+        sb.append("Claim Number:     " + this.claimNumber + "\n");
+        sb.append("Employee ID:      " + this.empId + "\n");
+        sb.append("Employee Name:    " + this.firstName + " " + this.lastName + "\n");
+        sb.append("Claim Type:       " + this.claimType + "\n");
+        sb.append("Date Of Service:  " + dtf.format(this.dateOfService) + "\n");
+        sb.append("Amount Requested: " + this.amountRequested + "\n");
+		
+		return sb.toString();
 	}
 
 }

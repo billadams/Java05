@@ -9,17 +9,27 @@ public class Validation
 {
     private static Scanner sc = new Scanner(System.in);
     
-    
+    /**
+     * @return void
+     */
     public static void displayNewLine() 
     {
         System.out.println();
     }
 
+    /**
+     * @param String string
+     * @return void
+     */
     public static void display(String string) 
     {
         System.out.println(string);
     }
 
+    /**
+     * @param String prompt
+     * @return String
+     */
     public static String getString(String prompt) 
     {
     	boolean isValid = false;
@@ -29,9 +39,13 @@ public class Validation
     	{
 	    	System.out.print(prompt);
 	        s = sc.nextLine();
-	        if (s != "")
+	        if (!(s.length() == 0))
 	        {
 	        	isValid = true;
+	        }
+	        else
+	        {
+	        	System.out.println("Error! Please enter a value.");
 	        }
     	}
         return s;
@@ -51,7 +65,8 @@ public class Validation
             try {
                 i = Integer.parseInt(sc.nextLine());
                 isValid = true;
-            } catch (NumberFormatException e) 
+            } 
+            catch (NumberFormatException e) 
             {
                 System.out.println("Error! Invalid integer value. Try again.");
             }
@@ -72,15 +87,17 @@ public class Validation
         while (isValid == false) 
         {
             i = getInt(prompt);
-            if (i <= min) 
+            if (i < min) 
             {
                 System.out.println(
                         "Error! Number must be greater than " + min);
-            } else if (i >= max) 
+            } 
+            else if (i > max) 
             {
                 System.out.println(
                         "Error! Number must be less than " + max);
-            } else 
+            } 
+            else 
             {
                 isValid = true;
             }
@@ -128,11 +145,14 @@ public class Validation
             {
                 System.out.println(
                         "Error! Number must be greater than " + min);
-            } else if (d >= max) 
+            } 
+            else if (d >= max) 
             {
                 System.out.println(
                         "Error! Number must be less than " + max);
-            } else {
+            } 
+            else 
+            {
                 isValid = true;
             }
         }
@@ -140,6 +160,7 @@ public class Validation
     }
     
     /**
+     * 
      * @param string prompt
      * @return date
      */
@@ -160,23 +181,26 @@ public class Validation
     			// to be properly parsed as a date object.
     			columns = dateEntered.split("/");
 	    		date = LocalDate.parse(columns[2] + "-" + columns[0] + "-" + columns[1]);
-	    		// TODO This needs to be more realistic.
-	    		// Make sure the date entered isn't after today.
-    			if (date.isAfter(LocalDate.now()))
+	    		
+	    		// Make sure the date entered isn't after today or 60 days prior to today's date.
+    			if (date.isAfter(LocalDate.now()) || date.isBefore(LocalDate.now().minusDays(60)))
     			{
     				throw new DateOutOfRangeException(); // Custom exception
     			}
     			
 	    		isValid = true;
-    		} catch (DateTimeException e)
+    		} 
+    		catch (DateTimeException e)
     		{
     			System.out.println("Error! Please enter a valid date.");
-    		} catch (ArrayIndexOutOfBoundsException e)
+    		} 
+    		catch (ArrayIndexOutOfBoundsException e)
     		{
     			System.out.println("Error! Please enter the date in the correct format.");
-    		} catch (DateOutOfRangeException e)
+    		} 
+    		catch (DateOutOfRangeException e)
     		{
-    			System.out.println("Error! Please enter a date in the past.");
+    			System.out.println("Error! Please enter a date within the past 60 days.");
     		}
     	}
     	   	
