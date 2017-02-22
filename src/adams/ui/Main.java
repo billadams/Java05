@@ -66,11 +66,11 @@ public class Main
         int id = Validation.getInt("Enter employee ID: ");
         String firstName = Validation.getString("Enter first name: ");
         String lastName = Validation.getString("Enter last name: ");
-        int userInput = Validation.getInt("Enter claim type \n" +
+        int claimUserInput = Validation.getInt("Enter claim type \n" +
         										"(1) - Health Care \n" +
         										"(2) - Dependent Childcare: ", 1, 2);
         String claimType = "";
-        switch (userInput)
+        switch (claimUserInput)
         {
         	case 1:
         		claimType = "Health Care";
